@@ -1,0 +1,15 @@
+{
+    "presets": [
+        ["env", {
+            "targets": {
+                "node": "current"
+            }
+        }]
+    ],
+    "plugins": [
+        "syntax-async-functions",
+        "transform-class-properties",
+        "transform-decorators-legacy",
+        "transform-object-rest-spread"
+    ]
+}

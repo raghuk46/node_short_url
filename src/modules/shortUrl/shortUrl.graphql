@@ -1,0 +1,27 @@
+type Query {
+    inflateUrl(input: shortCodeInput): ResponsePayload
+}
+type Mutation {
+    shortUrl(input: UrlInput!): ResponsePayload
+}
+
+input UrlInput {
+    originalUrl: String!
+}
+
+input shortCodeInput {
+    shortCode: String!
+}
+
+type ShortUrl {
+    shortCode: String
+    shortUrl: String
+    originalUrl: String
+}
+
+type ResponsePayload {
+    statusCode: Int!
+    message: String!
+    error: [Error]
+    data: ShortUrl
+}
