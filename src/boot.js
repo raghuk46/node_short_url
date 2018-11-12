@@ -1,11 +1,11 @@
 import { GraphQLServer } from 'graphql-yoga';
 import helmet from 'helmet';
+import Redis from 'ioredis';
 import RateLimit from 'express-rate-limit';
 import RateLimitRedis from 'rate-limit-redis';
 
 // establish the database connection based on env
 import dbConnect from './config/db';
-import redis from './config/redis';
 import generateSchema from './utils/generateSchema';
 import validateShortCode from './routes/validateShortCode';
 
@@ -13,6 +13,9 @@ export default async (env) => {
   // connect to database
   await dbConnect(env);
 
+  const { REDIS_HOST, REDIS_PORT } = process.env;
+
+  const redis = new Redis(REDIS_HOST, REDIS_PORT);
   const server = new GraphQLServer({
     schema: generateSchema(),
     context: ({ request }) => ({
